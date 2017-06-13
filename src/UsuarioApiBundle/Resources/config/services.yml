@@ -1,0 +1,4 @@
+services:
+    api.usuario.file_manager:
+        class: UsuarioApiBundle\Services\FileManager
+        arguments: ['%file_uploaded_directory%']

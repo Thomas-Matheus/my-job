@@ -1,0 +1,4 @@
+services:
+    api.job.mail:
+        class: JobApiBundle\Services\MailerService
+        arguments: ['@service_container']

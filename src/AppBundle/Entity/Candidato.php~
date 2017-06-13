@@ -1,0 +1,74 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Candidato
+ *
+ * @ORM\Table(name="candidato", indexes={@ORM\Index(name="fk_Candidato_Usuario1_idx", columns={"usuario_id"})})
+ * @ORM\Entity
+ */
+class Candidato
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefone", type="string", length=45, nullable=false)
+     */
+    private $telefone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="experiencias", type="string", length=500, nullable=false)
+     */
+    private $experiencias;
+
+    /**
+     * @var \Usuario
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * })
+     */
+    private $usuario;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Vagas", inversedBy="candidato")
+     * @ORM\JoinTable(name="interessados",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="candidato_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="vagas_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $vagas;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->vagas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

@@ -1,0 +1,5 @@
+services:
+    api.security.jwt_token_authenticator:
+        class: SecurityApiBundle\Security\JwtAuthenticator
+#        arguments: ['@doctrine.orm.entity_manager', '@lexik_jwt_authentication.encoder']
+        autowire: true

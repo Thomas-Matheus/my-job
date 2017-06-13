@@ -1,0 +1,43 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        AppBundle\Entity\Usuario:
+            algorithm: bcrypt
+
+    providers:
+        in_memory:
+            memory: ~
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        api:
+            pattern: ^/api/
+            anonymous: true
+            stateless: true
+            guard:
+                authenticators:
+                    - api.security.jwt_token_authenticator
+
+        main:
+            anonymous: ~
+            guard:
+                authenticators:
+                    - api.security.jwt_token_authenticator
+
+    access_control:
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(css/js), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: token_authentication, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/doc, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/security, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/api, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/api/user, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/api/job, roles: [ROLE_USER, ROLE_ADMIN] }

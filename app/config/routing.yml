@@ -1,0 +1,21 @@
+job_api:
+    resource: "@JobApiBundle/Controller/"
+    defaults: { _format: json }
+    type:     annotation
+    prefix:   /api/job
+
+usuario_api:
+    resource: "@UsuarioApiBundle/Controller/"
+    defaults: { _format: json }
+    type:     annotation
+    prefix:   /api/user
+
+security_api:
+    resource: "@SecurityApiBundle/Controller/"
+    defaults: { _format: json }
+    type:     annotation
+    prefix:   /api/security
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

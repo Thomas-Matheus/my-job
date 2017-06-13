@@ -1,0 +1,52 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Curriculo
+ *
+ * @ORM\Table(name="curriculo", indexes={@ORM\Index(name="fk_Curriculo_Candidato1_idx", columns={"candidato_id"})})
+ * @ORM\Entity
+ */
+class Curriculo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=200, nullable=false)
+     */
+    private $path;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="arquivo", type="string", length=32, nullable=false)
+     */
+    private $arquivo;
+
+    /**
+     * @var \Candidato
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Candidato")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="candidato_id", referencedColumnName="id")
+     * })
+     */
+    private $candidato;
+
+
+}
+
